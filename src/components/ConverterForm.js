@@ -8,9 +8,16 @@ class ConverterForm extends Component {
     }
     
     render() {
+        const currencies = this.props.store.getCurrencies;
+        console.log("ConverterForm");
+        console.log(currencies);
         return (
             <React.Fragment>
                 <h2>Converter Form</h2>
+                <button
+                    onClick={() => this.props.history.push('/')}>
+                    Back
+              </button>
             </React.Fragment>
         )
     }
