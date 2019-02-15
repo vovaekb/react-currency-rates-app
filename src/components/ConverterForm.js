@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 
 class ConverterForm extends Component {
-    constructor() {
-        super();
-    }
 
     componentDidMount() {
+        this.props.store.fetchAllRates();
     }
     
     render() {
