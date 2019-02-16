@@ -13,11 +13,10 @@ class RateView extends Component {
         return (
           <React.Fragment>
             <ListGroupItem key={rate.code}>
-              <span>{rate.country} {rate.name}</span><br/>
-              <b>Rate:</b>
-              <span>{rate.in_count}</span> -
-              <span>{rate.out_count}</span>
-              <hr/>
+              <h3>{rate.country} {rate.name}</h3><br/>
+              <b>Rate: </b>
+              <span>{rate.in_count} CZK</span> :
+              <span> {rate.out_count} {rate.code}</span>
             </ListGroupItem>
           </React.Fragment>
         )
