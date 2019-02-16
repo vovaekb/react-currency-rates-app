@@ -5,11 +5,7 @@ import { Currency } from './Currency';
 
 class RatesStore {
     rates = [];
-    destination_currency = null;
-
-    setDestinationCurrency (val) {
-        this.destination_currency = val;
-    }
+    conversionResult = null;
 
     fetchAllRates () {
         RatesAPI.getRates().then((data) => this.rates = data);
@@ -20,24 +16,21 @@ class RatesStore {
         return this.rates.map(rate => new Currency(rate.country, rate.name, rate.code));
     }
 
-    get getRateConversion () {
-        return createTransformer((sum) => {
-            console.log('Get rate conversion');
-            console.log(this.destination_currency);
-            const out_currency_rate = this.rates.filter(rate => rate.code === this.destination_currency)[0];
+    convertCurrency(sum, out_currency) {
+        console.log('Get rate conversion');
+        const out_currency_rate = this.rates.filter(rate => rate.code === out_currency)[0];
 
-            if(!out_currency_rate) return null;
-            const result = parseFloat( out_currency_rate.in_count / out_currency_rate.out_count ) * sum;
-            return result;
-        });
+        if (!out_currency_rate) return null;
+        this.conversionResult = parseFloat(out_currency_rate.in_count / out_currency_rate.out_count) * sum;
     }
 }
 
 decorate(RatesStore, {
     rates: observable,
+    conversionResult: observable,
     fetchAllRates: action,
+    convertCurrency: action,
     getCurrencies: computed,
-    getRateConversion: computed,
 });
 
 export default RatesStore;
